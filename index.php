@@ -6,7 +6,7 @@ $query = "SELECT * FROM just";
 $statement = $connection->prepare($query);
 $statement->execute();
 
-$rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+$users = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -23,7 +23,7 @@ $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
     <form>
         <input type="text" id="name" placeholder="Enter Name: " autofocus><br><br>
         <input type="password" id="password" placeholder="Enter Password: "><br><br>
-        <input type="button" value="Submit" onclick="sendData()">
+        <input type="button" value="Submit" onclick="sendData()"><br><br>
     </form>
 
        <table border="2">
@@ -34,11 +34,11 @@ $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
             </tr>  
         </thead>
          <tbody>
-            <?php foreach ($users as $row) : ?>
+            <?php foreach ($users as $user) : ?>
                <tr>
 
-               <td><?= $row['name'] ?></td>
-               <td><?= $row['password'] ?></td>
+               <td><?= $user['name'] ?></td>
+               <td><?= $user['password'] ?></td>
                     
             </tr>
             <?php endforeach; ?>
