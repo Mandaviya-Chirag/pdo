@@ -1,19 +1,70 @@
+<?php
+
+include ('./includes/init.php');
+
+$query = "SELECT * FROM just";
+$statement = $connection->prepare($query);
+$statement->execute();
+
+$rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pdo</title>
+    <title>PHP-CRUD</title>
 </head>
-<body>
 
+<body>
     <form>
-        <label>Username</label>
-        <input type="text" id="name"><br><br>
-        <label>password</label>
-        <input type="text" id="password"><br><br>
-        <button type="submit" onclick="sendData()">add</button>
+        <input type="text" id="name" placeholder="Enter Name: " autofocus><br><br>
+        <input type="password" id="password" placeholder="Enter Password: "><br><br>
+        <input type="button" value="Submit" onclick="sendData()">
     </form>
-    
+
+       <table border="2">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>Password</th>
+            </tr>  
+        </thead>
+         <tbody>
+            <?php foreach ($users as $row) : ?>
+               <tr>
+
+               <td><?= $row['name'] ?></td>
+               <td><?= $row['password'] ?></td>
+                    
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+
+    <script src="./js/jquery.min.js"></script>
+    <script>
+        function sendData() {
+            $.ajax({
+                url: './api/insert.php',
+                type: 'POST',
+                data: {
+                    name: $('#name').val(),
+                    password: $('#password').val(),
+                },
+                success: function(response) {
+                    if (response == 0)
+                        return window.location = './index.php';
+                    else {
+                        alert("Data Inserted Successfully !");
+                        window.location.href = './index.php';
+                    }
+                }
+            });
+        }
+    </script>
 </body>
+
 </html>
