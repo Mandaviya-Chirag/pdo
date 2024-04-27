@@ -21,16 +21,20 @@ $users = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
     <form>
-        <input type="text" id="name" placeholder="Enter Name: " autofocus><br><br>
-        <input type="password" id="password" placeholder="Enter Password: "><br><br>
+        <label>Name :</label>
+        <input type="text" id="name" placeholder="Enter Name" autofocus><br><br>
+        <label>Password :</label>
+        <input type="password" id="password" placeholder="Enter Password"><br><br>
         <input type="button" value="Submit" onclick="sendData()"><br><br>
     </form>
 
        <table border="2">
         <thead>
             <tr>
-                <th>name</th>
+                <th>Name</th>
                 <th>Password</th>
+                <th>delete</th>
+                <th>Update</th>
             </tr>  
         </thead>
          <tbody>
@@ -39,7 +43,9 @@ $users = $statement->fetchAll(PDO::FETCH_ASSOC);
 
                <td><?= $user['name'] ?></td>
                <td><?= $user['password'] ?></td>
-                    
+                <td><a href="api/delete.php?id=<?= $user['id'] ?>">Delete</a></td>
+                <td><button><a href="api/updateform.php?id=<?= $user['id'] ?>">Update</a></button></td>
+                
             </tr>
             <?php endforeach; ?>
         </tbody>
